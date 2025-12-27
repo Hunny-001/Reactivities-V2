@@ -16,7 +16,7 @@ public class Activity
     public double Latitude { get; set; }
     public double Longitude{ get; set; }
 }
-//Here we get warning in "public string Vanue { get; set; }" in string properties
+//Here we get warning in "public string Venue { get; set; }" in string properties
 //So to get rid of it you can do 2 things
 //1. Domain.csproj - Change "Nullable" as disable
 //2. We can make it as Null, NotNull, Required

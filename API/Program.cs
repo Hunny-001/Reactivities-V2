@@ -6,7 +6,6 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<AppDbContext>(x =>
-//here we are adding DBContext with AppDbContext.cs class in Persistence, here we are calling a constructor to getConnectionString
 //Here it means AppDbContext.cs is a scoped service
 // here every http request gets its own instance of AppDbContext, and disposed once its ends, it means
 //if 100 users visit your site, there will be 100 separate instances of that service
@@ -18,7 +17,11 @@ builder.Services.AddDbContext<AppDbContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     //DefaultConnection is defined in API/appsettings.development.json file
 });
+builder.Services.AddCors();
 var app = builder.Build();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000", "http://localhost:3000"));
+//here we are adding CORS policy to allow requests from our React app (client) running on localhost:3000
 app.MapControllers(); //2. Once we execute dotnet run command then there is routing i.e here localhost:6969/WeatherForecast
 
 
